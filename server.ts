@@ -5,6 +5,17 @@ const cors = require('cors');
 const app = express();
 const port = 3333;
 
+export type Imoveis = {
+  numeroContribuinte: number
+  nomeLogradouro: string
+  numeroImovel: number
+  complemento: string
+  bairro: string
+  cep: number
+  areaTerreno: number
+  valorM2: number
+}
+
 app.use(cors());
 
 const pool = new Pool({
@@ -43,7 +54,19 @@ app.get('/dados/:filter?', async (req: Request, res: Response) => {
     const result = await client.query(queryString);
     client.release();
 
-    res.json(result.rows);
+    const data: Imoveis[] = result.rows.map(row => {
+      return {
+        areaTerreno: row['AREA DO TERRENO'],
+        bairro: row['BAIRRO DO IMOVEL'],
+        cep: row['CEP DO IMOVEL'],
+        complemento: row['COMPLEMENTO DO IMOVEL'],
+        nomeLogradouro: row['NOME DE LOGRADOURO DO IMOVEL'],
+        numeroContribuinte: row['NUMERO DO CONTRIBUINTE'],
+        numeroImovel: row['NUMERO DO IMOVEL'],
+        valorM2: row['VALOR DO M2 DO TERRENO'],
+      }
+    })
+    res.json(data);
 
   } catch (err) {
 
