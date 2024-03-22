@@ -1,5 +1,6 @@
 ## Desafio
 [x] - Transformar um CSV em um banco de dados
+
 [x] - Criar um componente para buscar qualquer dado persistente no banco de dados
 
 ### Aplicação back-end para listagem de Imoveis
