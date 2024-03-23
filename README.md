@@ -10,6 +10,8 @@
 - Typescript
 
 ### Como executar o projeto
+```npm install```
+
 ```npm run dev```
 
 ### Rotas
